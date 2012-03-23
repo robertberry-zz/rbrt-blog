@@ -1,0 +1,17 @@
+# Fill in this config file then rename it config.yml
+
+title: "My blog"
+
+database:
+  # name of the driver used to access the database (e.g. mysql, postgresql,
+  # sqlite, etc.)
+  drivername: 
+  # host to connect to. may also specify a 'port' argument here if not using
+  # the default. leave blank if using sqlite.
+  host: localhost
+  # leave blank if using sqlite.
+  username: root
+  # leave blank if using sqlite.
+  password:
+  # name of db to connect to (or file if using sqlite)
+  database: database
