@@ -1,3 +1,4 @@
-
 # so my test config does not get committed
 config.yml
+# do not commit byte-compiled python files
+*.pyc

@@ -29,6 +29,10 @@ class Post(Base, Defaults):
 
     author = relationship("User", backref=backref("posts", order_by=created))
 
+    @property
+    def url(self):
+        return "/post/%d/" % self.id
+
 class User(Base, Defaults):
     user_name = Column("user_name", Unicode)
     first_name = Column("first_name", Unicode)

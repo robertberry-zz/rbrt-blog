@@ -2,18 +2,19 @@
 """
 
 import yaml
+import sqlalchemy
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine.url import URL as db_url
 
 from utils import memoized
 
-class Error(exception): pass
+class Error(Exception): pass
 class LoadConfigError(Error): pass
 class BadConfigError(Error): pass
 
 class Environment(object):
-    def __init__(config_path):
+    def __init__(self, config_path):
         self.config_path = config_path
 
     @property
