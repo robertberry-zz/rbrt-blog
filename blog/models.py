@@ -9,6 +9,8 @@ from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import func
 
+from flask import url_for
+
 Base = declarative_base()
 
 class Defaults(object):
@@ -31,9 +33,13 @@ class Post(Base, Defaults):
 
     @property
     def url(self):
-        return "/post/%d/" % self.id
+        return url_for('post', id=self.id)
 
 class User(Base, Defaults):
     user_name = Column("user_name", Unicode)
     first_name = Column("first_name", Unicode)
     last_name = Column("last_name", Unicode)
+
+    @property
+    def full_name(self):
+        return u"%s %s" % (self.first_name, self.last_name)

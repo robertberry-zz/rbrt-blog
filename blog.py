@@ -50,9 +50,9 @@ def index():
         .limit(POSTS_PER_PAGE)
     return render_template('index.html', posts=posts)
 
-@app.route("/post/<post_id>/")
-def post(post_id):
-    post = g.session.query(Post).filter(Post.id == int(post_id)).one()
+@app.route("/post/<id>/")
+def post(id):
+    post = g.session.query(Post).filter(Post.id == int(id)).one()
     return render_template('post.html', post=post)
 
 if __name__ == "__main__":
