@@ -36,7 +36,8 @@ class Post(Base, Defaults):
         return url_for('post', id=self.id)
 
 class User(Base, Defaults):
-    user_name = Column("user_name", Unicode)
+    username = Column("username", Unicode)
+    password = Column("password", Unicode)
     first_name = Column("first_name", Unicode)
     last_name = Column("last_name", Unicode)
 

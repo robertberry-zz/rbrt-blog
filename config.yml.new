@@ -1,7 +1,8 @@
 # Fill in this config file then rename it config.yml
 
 title: "My blog"
-
+# used for encrypting sessions
+secret_key:
 database:
   # name of the driver used to access the database (e.g. mysql, postgresql,
   # sqlite, etc.)
