@@ -5,12 +5,12 @@ Quick blog.
 __author__ = "Robert Berry"
 __email__ = "rjberry@gmail.com"
 
+import markdown
+
 from optparse import OptionParser
-
-from flask import Flask, url_for, render_template, g, redirect, session, request
-
+from flask import Flask, url_for, render_template, g, redirect, session, \
+    request, Markup
 from sqlalchemy.orm.exc import NoResultFound
-
 from werkzeug.security import check_password_hash
 
 from blog.models import User, Post
@@ -25,6 +25,10 @@ app = Flask(__name__)
 env = Environment(CONFIG_PATH)
 
 app.secret_key = "4xfaExc0xf8nxbdxb2" #env.config['secret_key']
+
+@app.template_filter('markdown')
+def markdown_filter(s):
+    return Markup(markdown.markdown(s))
 
 @app.before_request
 def before_request():
