@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% if errors %}
+<div class="error">
+  <ul>
+  {% for error in errors %}
+    <li>{{ error }}</li>
+  {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form action="" method="post">
+  <dl>
+    <dt>Title</dt>
+    <dd><input type="text" name="title" /></dd>
+    <dt>Body</dt>
+    <dd><textarea name="body" class="post_body"></textarea></dd>
+  </dl>
+  <input type="submit" value="Post" />
+</form>
+
+{% endblock %}

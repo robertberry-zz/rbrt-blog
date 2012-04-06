@@ -4,3 +4,8 @@ div.error {
     font: 14px Arial, Verdana, sans-serif;
     padding: 1em;
 }
+
+textarea.post_body {
+    height: 200px;
+    width: 500px;
+}

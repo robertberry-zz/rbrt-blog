@@ -16,6 +16,7 @@ from werkzeug.security import check_password_hash
 from blog.models import User, Post
 from blog.environment import Environment
 from blog.set_up import init_database, populate_test_data
+from blog.utils import login_required
 
 CONFIG_PATH = "config.yml"
 POSTS_PER_PAGE = 20
@@ -49,6 +50,25 @@ def index():
         .limit(POSTS_PER_PAGE)
     return render_template('index.html', posts=posts)
 
+@app.route("/post/", methods=["GET", "POST"])
+@login_required
+def new_post():
+    errors = []
+    if request.method == "POST":
+        title = request.form["title"]
+        body = request.form["body"]
+        if not title:
+            errors.append("You must supply a title.")
+        if not body:
+            errors.append("Post may not be empty.")
+        if not errors:
+            post = Post(title=title, body=body, author=g.user)
+            g.session.add(post)
+            g.session.commit()
+            return redirect(post.url)
+    else:
+        return render_template('new_post.html', errors=errors)
+
 @app.route("/post/<id>/")
 def post(id):
     post = g.session.query(Post).filter(Post.id == int(id)).one()
@@ -67,7 +87,7 @@ def login():
                     .one()
                 if check_password_hash(user.password, password):
                     session['user_id'] = user.id
-                    return redirect(url_for('index'))
+                    return redirect(request.args.get('next', url_for('index')))
                 else:
                     error = "Incorrect password"
             except NoResultFound:
