@@ -11,6 +11,8 @@ from flask import Flask, url_for, render_template, g, redirect, session, request
 
 from sqlalchemy.orm.exc import NoResultFound
 
+from werkzeug.security import check_password_hash
+
 from blog.models import User, Post
 from blog.environment import Environment
 from blog.set_up import init_database, populate_test_data
@@ -62,11 +64,14 @@ def login():
             # do the log in
             try:
                 user = g.session.query(User).filter(User.username == username) \
-                    .filter(User.password == password).one()
-                session['user_id'] = user.id
-                return redirect(url_for('index'))
+                    .one()
+                if check_password_hash(user.password, password):
+                    session['user_id'] = user.id
+                    return redirect(url_for('index'))
+                else:
+                    error = "Incorrect password"
             except NoResultFound:
-                error = "Bad credentials supplied"
+                error = "No user called '%s'" % username
         except KeyError:
             error = "Please supply both username and password"
     return render_template('login.html', error=error)

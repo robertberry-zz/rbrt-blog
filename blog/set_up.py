@@ -1,6 +1,8 @@
 """Functions for helping set up blog.
 """
 
+from werkzeug.security import generate_password_hash
+
 from models import Base, User, Post
 
 def init_database(env):
@@ -13,7 +15,7 @@ def populate_test_data(env):
     """
     session = env.create_database_session()
     me = User(username=u"rob", first_name=u"Rob", last_name=u"Berry", \
-                  password=u"password")
+                  password=unicode(generate_password_hash("password")))
     test_post = Post(title=u"Test post!", body=u"This is a test post :D", \
                          author=me)
     session.add(me)
