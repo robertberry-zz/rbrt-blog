@@ -5,6 +5,26 @@ div.error {
     padding: 1em;
 }
 
+div.post {
+    font: 12pt Georgia, "Times New Roman", Times, serif;
+    margin-bottom: 2em;
+}
+
+div.post h2 {
+    font: 16pt Arial, Verdana, sans-serif;
+    margin-bottom: 0;
+}
+
+div.post h2 a:link, div.post h2 a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+div.post span.meta {
+    color: #999;
+    font: 11pt Arial, Verdana, sans-serif;
+}
+
 textarea.post_body {
     height: 200px;
     width: 500px;

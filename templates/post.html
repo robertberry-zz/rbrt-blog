@@ -2,12 +2,6 @@
 
 {% block body %}
 
-<h2>{{ post.title }}</h2>
-
-{{ post.body | markdown }}
-
-<div class="post-details">
-  <p>Author: {{ post.author.full_name }}</p>
-</div>
+{% include '_post.html' %}
 
 {% endblock %}

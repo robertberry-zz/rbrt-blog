@@ -50,7 +50,7 @@ def teardown_request(a):
 
 @app.route("/")
 def index():
-    posts = g.session.query(Post).join(User).order_by(Post.created) \
+    posts = g.session.query(Post).join(User).order_by(Post.created.desc()) \
         .limit(POSTS_PER_PAGE)
     return render_template('index.html', posts=posts)
 
@@ -71,12 +71,12 @@ def new_post():
             g.session.commit()
             return redirect(post.url)
     else:
-        return render_template('new_post.html', errors=errors)
+        return render_template('new_post.html', errors=errors, title="New post")
 
 @app.route("/post/<id>/")
 def post(id):
     post = g.session.query(Post).filter(Post.id == int(id)).one()
-    return render_template('post.html', post=post)
+    return render_template('post.html', post=post, title=post.title)
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
@@ -98,7 +98,7 @@ def login():
                 error = "No user called '%s'" % username
         except KeyError:
             error = "Please supply both username and password"
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error, title="Log in")
 
 @app.route("/logout/", methods=["GET", "POST"])
 def logout():

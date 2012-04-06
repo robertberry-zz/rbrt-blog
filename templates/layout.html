@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{ title }}</title>
+    <title>{% if title %}{{ title }} | {% endif %}Rob's blog</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/static/stylesheet.css" />
     <link rel="shortcut icon" href="/favicon.png" />
   </head>
   <body>
+    
+<h1><a href="/">Rob's blog</a></h1>
 
 {% block body %}
 {% endblock %}
-
-{% if g.user %}
-<div id="login_details">
-  <p>You are logged in as {{ g.user.full_name }}.
-    <a href="/logout/">Log out</a>.
-  </p>
-</div>
-{% endif %}
 
   </body>
 </html>
